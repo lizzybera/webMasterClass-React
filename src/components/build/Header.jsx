@@ -1,6 +1,8 @@
 // import React from 'react'
+import { useContext } from "react"
 import {BsSearch}  from "react-icons/bs"
 import { Link, useLocation } from "react-router-dom"
+import { Pop_upContext } from "../context/modalContext"
 
 
 const headerData = [
@@ -29,6 +31,7 @@ const headerData = [
 const Header = () => {
   const paths = useLocation().pathname
   console.log(paths);
+  const {setShow} = useContext(Pop_upContext)
   
   return (
     <div className="w-full h-[90px] flex justify-center items-center bg-gray-300">
@@ -63,7 +66,9 @@ const Header = () => {
             <input type="text" placeholder="Search..." className="w-[87%] placeholder:text-[15px] outline-none" />
           </div>
 
-          <div className="font-semibold ">Log In </div>
+          <div className="font-semibold cursor-pointer"
+          onClick={() => setShow("loginModal")}
+          >Log In </div>
           <div className="py-[10px] px-[17px] bg-black text-white rounded-3xl text-[14px] font-semibold">Sign Up</div>
         </div>
       </div>
