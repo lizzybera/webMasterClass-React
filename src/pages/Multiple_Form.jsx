@@ -86,7 +86,7 @@ const Form2 = () => {
     const [email, setemail] = useState("")
     const [address, setaddress] = useState("")
 
-    const formdatas = JSON.parse(localStorage.getItem)
+    // const formdatas = JSON.parse(localStorage.get)
 
     const onShow = () => {
         setShow(!show)
