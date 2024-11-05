@@ -86,7 +86,10 @@ const Form2 = () => {
     const [email, setemail] = useState("")
     const [address, setaddress] = useState("")
 
-    // const formdatas = JSON.parse(localStorage.get)
+    const formdatas = JSON.parse(localStorage.getItem("formData"))
+
+    // console.log(formdatas.address, "formData");
+    
 
     const onShow = () => {
         setShow(!show)
@@ -113,7 +116,7 @@ const Form2 = () => {
                 <input className="w-full bg-transparent ml-[5px] outline-none h-[70%] cursor-pointer placeholder:text-[20px]" placeholder='Email' type='text' 
                 value={email}
                 onChange={(e) =>{
-                    setaddress(e.target.value)
+                    setemail(e.target.value)
                 }}
                 />
             </div>
@@ -143,8 +146,13 @@ const Form2 = () => {
                         localStorage.setItem("pageNumber", JSON.stringify(3))
 
                         const data = {
-                            email, password
+                            name : formdatas?.name,
+                            password : formdatas?.password,
+                            email, address
                         }
+
+                        localStorage.setItem("formData", JSON.stringify(data))
+
                         window.location.reload()
                     }}
                 >Next</div>
@@ -156,10 +164,13 @@ const Form2 = () => {
 
 const Form3 = () => {
     const [show, setShow] = useState(false)
+    const [phoneNo, setphoneNo] = useState("")
 
     const onShow = () => {
         setShow(!show)
     }
+
+    const formDatas = JSON.parse(localStorage.getItem("formData"))
 
     return <div className="w-full h-[100vh] flex justify-center items-center">
         <div className="border w-[40%] h-[400px] px-[30px] py-[20px]">
@@ -179,7 +190,12 @@ const Form3 = () => {
                 {/* <Icon /> */}
 
                 <FaUser size={20} color="black" />
-                <input className="w-full bg-transparent ml-[5px] outline-none h-[70%] cursor-pointer placeholder:text-[20px]" placeholder='Phone Number' type='text' />
+                <input className="w-full bg-transparent ml-[5px] outline-none h-[70%] cursor-pointer placeholder:text-[20px]" placeholder='Phone Number' type='text'
+                value={phoneNo}
+                onChange={(e) => {
+                    setphoneNo(e.target.value)
+                }}  
+                />
             </div>
 
             {/* <div className="w-full h-[50px] border-[2px] border-blue-700 rounded-lg flex items-center px-[15px] my-[10px]">
@@ -196,7 +212,24 @@ const Form3 = () => {
                         window.location.reload()
                     }}
                 >Prev</div>
-                <div className="w-[70px] h-[45px] rounded-lg text-white flex items-center justify-center my-[30px] font-bold text-sm cursor-pointer bg-purple-600">Create</div>
+                <div className="w-[70px] h-[45px] rounded-lg text-white flex items-center justify-center my-[30px] font-bold text-sm cursor-pointer bg-purple-600"
+                onClick={()=>{
+                    localStorage.removeItem("formData")
+                    alert(
+                        
+                            "name :", formDatas?.name,
+                            "address :", formDatas?.address,
+                            "email :", formDatas?.email,
+                            "password :", formDatas?.password,
+                            "phoneNo :", phoneNo 
+                        
+                    )
+
+                    localStorage.setItem("pageNumber", JSON.stringify(1))
+
+                    window.location.reload()
+                }}
+                >Create</div>
             </div>
 
         </div>
@@ -207,6 +240,7 @@ const Form3 = () => {
 
 const Multiple_Form = () => {
     const pageNumber = JSON.parse(localStorage.getItem("pageNumber"))
+    
     return (
         <div>
             {
